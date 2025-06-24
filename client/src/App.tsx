@@ -154,14 +154,14 @@ function App() {
                     disabled={isLoading}
                     className="ml-auto bg-green-600 hover:bg-green-700"
                   >
-                    {isLoading ? '⏳ Processing...' : '🔄 End Turn'}
+                    {isLoading ? '⏳ Processing...' : '⏳ End Turn'}
                   </Button>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-amber-100 rounded-lg">
-                    <div className="text-2xl mb-1">🪵</div>
+                    <div className="text-2xl mb-1">🌳</div>
                     <div className="text-2xl font-bold text-amber-800">{playerState.player.wood}</div>
                     <div className="text-sm text-amber-600">Wood</div>
                   </div>
@@ -171,12 +171,12 @@ function App() {
                     <div className="text-sm text-gray-600">Stone</div>
                   </div>
                   <div className="text-center p-4 bg-green-100 rounded-lg">
-                    <div className="text-2xl mb-1">🌾</div>
+                    <div className="text-2xl mb-1">🍞</div>
                     <div className="text-2xl font-bold text-green-800">{playerState.player.food}</div>
                     <div className="text-sm text-green-600">Food</div>
                   </div>
                   <div className="text-center p-4 bg-yellow-100 rounded-lg">
-                    <div className="text-2xl mb-1">🪙</div>
+                    <div className="text-2xl mb-1">💰</div>
                     <div className="text-2xl font-bold text-yellow-800">{playerState.player.gold}</div>
                     <div className="text-sm text-yellow-600">Gold</div>
                   </div>
@@ -196,7 +196,7 @@ function App() {
                         size="sm"
                         className="bg-blue-600 hover:bg-blue-700"
                       >
-                        🔨 Build
+                        🧱 Build
                       </Button>
                       <Button 
                         onClick={() => setShowUpgradeDialog(true)}
@@ -220,9 +220,9 @@ function App() {
                         <div key={building.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                           <div className="flex items-center gap-3">
                             <span className="text-xl">
-                              {building.type === 'SAWMILL' && '🏭'}
-                              {building.type === 'QUARRY' && '⛏️'}
-                              {building.type === 'FARM' && '🚜'}
+                              {building.type === 'SAWMILL' && '🪵'}
+                              {building.type === 'QUARRY' && '🪨'}
+                              {building.type === 'FARM' && '🌾'}
                               {building.type === 'BARRACKS' && '⚔️'}
                               {building.type === 'WALLS' && '🏰'}
                               {building.type === 'MARKET' && '🏪'}
@@ -251,7 +251,7 @@ function App() {
                       className="bg-red-600 hover:bg-red-700"
                       disabled={!playerState.buildings.some((b: Building) => b.type === 'BARRACKS')}
                     >
-                      🎯 Train
+                      🏹 Train
                     </Button>
                   </CardTitle>
                 </CardHeader>
@@ -269,9 +269,9 @@ function App() {
                         <div key={unit.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                           <div className="flex items-center gap-3">
                             <span className="text-xl">
-                              {unit.type === 'WARRIOR' && '⚔️'}
-                              {unit.type === 'ARCHER' && '🏹'}
-                              {unit.type === 'SCOUT' && '🕵️'}
+                              {unit.type === 'WARRIOR' && '🤺'}
+                              {unit.type === 'ARCHER' && '🎯'}
+                              {unit.type === 'SCOUT' && '🏃'}
                             </span>
                             <div>
                               <div className="font-medium">{unit.type.toLowerCase()}s</div>
@@ -290,7 +290,7 @@ function App() {
             {/* Game Info */}
             <Card>
               <CardHeader>
-                <CardTitle>🎮 Game Status</CardTitle>
+                <CardTitle>📊 Game Status</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-gray-600 space-y-1">

@@ -33,22 +33,22 @@ interface BuildBuildingDialogProps {
 // Building costs and descriptions
 const BUILDING_INFO = {
   SAWMILL: {
-    name: '🏭 Sawmill',
+    name: '🪵 Sawmill',
     description: 'Produces wood resources each turn',
     costs: { wood: 50, stone: 25, food: 0, gold: 0 },
-    icon: '🏭'
+    icon: '🪵'
   },
   QUARRY: {
-    name: '⛏️ Quarry', 
+    name: '🪨 Quarry', 
     description: 'Produces stone resources each turn',
     costs: { wood: 75, stone: 30, food: 0, gold: 0 },
-    icon: '⛏️'
+    icon: '🪨'
   },
   FARM: {
-    name: '🚜 Farm',
+    name: '🌾 Farm',
     description: 'Produces food resources each turn',
     costs: { wood: 40, stone: 20, food: 0, gold: 10 },
-    icon: '🚜'
+    icon: '🌾'
   },
   BARRACKS: {
     name: '⚔️ Barracks',
@@ -122,7 +122,7 @@ export function BuildBuildingDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>🔨 Build New Building</DialogTitle>
+          <DialogTitle>🧱 Build New Building</DialogTitle>
           <DialogDescription>
             Choose a building type to construct in your settlement.
           </DialogDescription>
@@ -148,7 +148,7 @@ export function BuildBuildingDialog({
                     <div className="flex items-center justify-between w-full">
                       <span>{info.name}</span>
                       {!canAfford(type as BuildingType) && (
-                        <span className="text-red-500 text-xs ml-2">Can't afford</span>
+                        <span className="text-red-500 text-xs ml-2">❌ Can't afford</span>
                       )}
                     </div>
                   </SelectItem>
@@ -175,7 +175,7 @@ export function BuildBuildingDialog({
                           playerResources && playerResources.wood >= selectedBuilding.costs.wood 
                             ? 'text-green-600' : 'text-red-600'
                         }`}>
-                          🪵 {selectedBuilding.costs.wood}
+                          🌳 {selectedBuilding.costs.wood}
                         </div>
                       )}
                       {selectedBuilding.costs.stone > 0 && (
@@ -191,7 +191,7 @@ export function BuildBuildingDialog({
                           playerResources && playerResources.food >= selectedBuilding.costs.food 
                             ? 'text-green-600' : 'text-red-600'
                         }`}>
-                          🌾 {selectedBuilding.costs.food}
+                          🍞 {selectedBuilding.costs.food}
                         </div>
                       )}
                       {selectedBuilding.costs.gold > 0 && (
@@ -199,7 +199,7 @@ export function BuildBuildingDialog({
                           playerResources && playerResources.gold >= selectedBuilding.costs.gold 
                             ? 'text-green-600' : 'text-red-600'
                         }`}>
-                          🪙 {selectedBuilding.costs.gold}
+                          💰 {selectedBuilding.costs.gold}
                         </div>
                       )}
                     </div>
@@ -228,7 +228,7 @@ export function BuildBuildingDialog({
             disabled={!selectedType || !canAfford(selectedType) || isLoading}
             className="bg-blue-600 hover:bg-blue-700"
           >
-            {isLoading ? '🔨 Building...' : '🏗️ Build'}
+            {isLoading ? '🧱 Building...' : '🏗️ Build'}
           </Button>
         </DialogFooter>
       </DialogContent>

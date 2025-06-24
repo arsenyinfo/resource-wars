@@ -35,22 +35,22 @@ interface TrainUnitsDialogProps {
 // Unit costs and descriptions
 const UNIT_INFO = {
   WARRIOR: {
-    name: '⚔️ Warrior',
+    name: '🤺 Warrior',
     description: 'Strong melee fighters for close combat',
     costs: { wood: 0, stone: 0, food: 15, gold: 10 },
-    icon: '⚔️'
+    icon: '🤺'
   },
   ARCHER: {
-    name: '🏹 Archer',
+    name: '🎯 Archer',
     description: 'Ranged fighters with bow and arrows',
     costs: { wood: 5, stone: 0, food: 20, gold: 15 },
-    icon: '🏹'
+    icon: '🎯'
   },
   SCOUT: {
-    name: '🕵️ Scout',
+    name: '🏃 Scout',
     description: 'Fast units for reconnaissance and exploration',
     costs: { wood: 0, stone: 0, food: 10, gold: 5 },
-    icon: '🕵️'
+    icon: '🏃'
   }
 } as const;
 
@@ -135,13 +135,13 @@ export function TrainUnitsDialog({
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>🎯 Train Units</DialogTitle>
+            <DialogTitle>🏹 Train Units</DialogTitle>
           </DialogHeader>
           
           <div className="text-center py-8">
             <div className="text-4xl mb-4">🏗️</div>
             <p className="text-gray-600 mb-4">
-              You need a <strong>Barracks</strong> to train military units!
+              ❌ You need a <strong>Barracks</strong> to train military units!
             </p>
             <p className="text-sm text-amber-600">
               💡 Build a Barracks first, then return here to train your army.
@@ -162,7 +162,7 @@ export function TrainUnitsDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>🎯 Train Units</DialogTitle>
+          <DialogTitle>🏹 Train Units</DialogTitle>
           <DialogDescription>
             Train military units to defend your settlement and expand your territory.
           </DialogDescription>
@@ -238,7 +238,7 @@ export function TrainUnitsDialog({
                             playerResources && playerResources.wood >= totalCosts.wood 
                               ? 'text-green-600' : 'text-red-600'
                           }`}>
-                            🪵 {totalCosts.wood}
+                            🌳 {totalCosts.wood}
                           </div>
                         )}
                         {totalCosts && totalCosts.stone > 0 && (
@@ -254,7 +254,7 @@ export function TrainUnitsDialog({
                             playerResources && playerResources.food >= totalCosts.food 
                               ? 'text-green-600' : 'text-red-600'
                           }`}>
-                            🌾 {totalCosts.food}
+                            🍞 {totalCosts.food}
                           </div>
                         )}
                         {totalCosts && totalCosts.gold > 0 && (
@@ -262,7 +262,7 @@ export function TrainUnitsDialog({
                             playerResources && playerResources.gold >= totalCosts.gold 
                               ? 'text-green-600' : 'text-red-600'
                           }`}>
-                            🪙 {totalCosts.gold}
+                            💰 {totalCosts.gold}
                           </div>
                         )}
                       </div>
@@ -292,7 +292,7 @@ export function TrainUnitsDialog({
             disabled={!selectedType || quantity <= 0 || (selectedType && !canAfford(selectedType as UnitType, quantity)) || isLoading}
             className="bg-red-600 hover:bg-red-700"
           >
-            {isLoading ? '🎯 Training...' : '⚔️ Train'}
+            {isLoading ? '🏹 Training...' : '⚔️ Train'}
           </Button>
         </DialogFooter>
       </DialogContent>

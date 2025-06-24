@@ -43,9 +43,9 @@ const BASE_COSTS = {
 } as const;
 
 const BUILDING_ICONS = {
-  SAWMILL: '🏭',
-  QUARRY: '⛏️',
-  FARM: '🚜',
+  SAWMILL: '🪵',
+  QUARRY: '🪨',
+  FARM: '🌾',
   BARRACKS: '⚔️',
   WALLS: '🏰',
   MARKET: '🏪'
@@ -152,7 +152,7 @@ export function UpgradeBuildingDialog({
                             <Badge variant="secondary" className="ml-2">Lv.{building.level}</Badge>
                           </span>
                           {!canAffordUpgrade(building) && (
-                            <span className="text-red-500 text-xs ml-2">Can't afford</span>
+                            <span className="text-red-500 text-xs ml-2">❌ Can't afford</span>
                           )}
                         </div>
                       </SelectItem>
@@ -172,7 +172,7 @@ export function UpgradeBuildingDialog({
                         </div>
                         <div className="flex items-center gap-2">
                           <Badge variant="secondary">Level {selectedBuilding.level}</Badge>
-                          <span className="text-sm text-gray-500">→</span>
+                          <span className="text-sm text-gray-500">➡️</span>
                           <Badge variant="default">Level {selectedBuilding.level + 1}</Badge>
                         </div>
                       </div>
@@ -185,7 +185,7 @@ export function UpgradeBuildingDialog({
                               playerResources && playerResources.wood >= upgradeCosts.wood 
                                 ? 'text-green-600' : 'text-red-600'
                             }`}>
-                              🪵 {upgradeCosts.wood}
+                              🌳 {upgradeCosts.wood}
                             </div>
                           )}
                           {upgradeCosts.stone > 0 && (
@@ -201,7 +201,7 @@ export function UpgradeBuildingDialog({
                               playerResources && playerResources.food >= upgradeCosts.food 
                                 ? 'text-green-600' : 'text-red-600'
                             }`}>
-                              🌾 {upgradeCosts.food}
+                              🍞 {upgradeCosts.food}
                             </div>
                           )}
                           {upgradeCosts.gold > 0 && (
@@ -209,7 +209,7 @@ export function UpgradeBuildingDialog({
                               playerResources && playerResources.gold >= upgradeCosts.gold 
                                 ? 'text-green-600' : 'text-red-600'
                             }`}>
-                              🪙 {upgradeCosts.gold}
+                              💰 {upgradeCosts.gold}
                             </div>
                           )}
                         </div>
@@ -240,7 +240,7 @@ export function UpgradeBuildingDialog({
             disabled={!selectedBuilding || !canAffordUpgrade(selectedBuilding) || isLoading}
             className="bg-amber-600 hover:bg-amber-700"
           >
-            {isLoading ? '⬆️ Upgrading...' : '🔧 Upgrade'}
+            {isLoading ? '⬆️ Upgrading...' : '✨ Upgrade'}
           </Button>
         </DialogFooter>
       </DialogContent>
