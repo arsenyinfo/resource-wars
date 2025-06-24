@@ -1,27 +1,68 @@
 
+import { db } from '../db';
+import { playersTable, buildingsTable } from '../db/schema';
 import { type EndTurnInput, type Player } from '../schema';
+import { eq } from 'drizzle-orm';
 
 export async function endTurn(input: EndTurnInput): Promise<Player> {
-    // This is a placeholder declaration! Real code should be implemented here.
-    // The goal of this handler is processing the end of a game turn for resource production.
-    // Should:
-    // 1. Fetch player's buildings and their levels
-    // 2. Calculate resource production based on building types and levels
-    // 3. Update player's resource counts accordingly
-    // 4. Return updated player state
-    // 
-    // Resource production rules (example):
-    // - SAWMILL: produces wood based on level (e.g., level * 10 wood per turn)
-    // - QUARRY: produces stone based on level (e.g., level * 8 stone per turn)
-    // - FARM: produces food based on level (e.g., level * 12 food per turn)
-    // - MARKET: produces gold based on level (e.g., level * 5 gold per turn)
-    return Promise.resolve({
-        id: input.playerId,
-        userId: "placeholder-user",
-        wood: 100,
-        stone: 50,
-        food: 75,
-        gold: 25,
-        created_at: new Date()
-    });
+  try {
+    // Fetch player's current state
+    const players = await db.select()
+      .from(playersTable)
+      .where(eq(playersTable.id, input.playerId))
+      .execute();
+
+    if (players.length === 0) {
+      throw new Error(`Player with id ${input.playerId} not found`);
+    }
+
+    const player = players[0];
+
+    // Fetch player's buildings
+    const buildings = await db.select()
+      .from(buildingsTable)
+      .where(eq(buildingsTable.playerId, input.playerId))
+      .execute();
+
+    // Calculate resource production based on building types and levels
+    let woodProduction = 0;
+    let stoneProduction = 0;
+    let foodProduction = 0;
+    let goldProduction = 0;
+
+    for (const building of buildings) {
+      switch (building.type) {
+        case 'SAWMILL':
+          woodProduction += building.level * 10;
+          break;
+        case 'QUARRY':
+          stoneProduction += building.level * 8;
+          break;
+        case 'FARM':
+          foodProduction += building.level * 12;
+          break;
+        case 'MARKET':
+          goldProduction += building.level * 5;
+          break;
+        // BARRACKS and WALLS don't produce resources
+      }
+    }
+
+    // Update player's resource counts
+    const updatedPlayers = await db.update(playersTable)
+      .set({
+        wood: player.wood + woodProduction,
+        stone: player.stone + stoneProduction,
+        food: player.food + foodProduction,
+        gold: player.gold + goldProduction
+      })
+      .where(eq(playersTable.id, input.playerId))
+      .returning()
+      .execute();
+
+    return updatedPlayers[0];
+  } catch (error) {
+    console.error('End turn failed:', error);
+    throw error;
+  }
 }

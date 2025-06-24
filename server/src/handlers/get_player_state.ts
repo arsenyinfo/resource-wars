@@ -1,21 +1,42 @@
 
+import { db } from '../db';
+import { playersTable, buildingsTable, unitsTable } from '../db/schema';
 import { type GetPlayerStateInput, type PlayerState } from '../schema';
+import { eq } from 'drizzle-orm';
 
 export async function getPlayerState(input: GetPlayerStateInput): Promise<PlayerState> {
-    // This is a placeholder declaration! Real code should be implemented here.
-    // The goal of this handler is fetching complete player state including resources, buildings, and units.
-    // Should perform a join query to get all related data for the player.
-    return Promise.resolve({
-        player: {
-            id: input.playerId,
-            userId: "placeholder-user",
-            wood: 100,
-            stone: 50,
-            food: 75,
-            gold: 25,
-            created_at: new Date()
-        },
-        buildings: [], // Placeholder empty buildings array
-        units: [] // Placeholder empty units array
-    });
+  try {
+    // Get player data
+    const players = await db.select()
+      .from(playersTable)
+      .where(eq(playersTable.id, input.playerId))
+      .execute();
+
+    if (players.length === 0) {
+      throw new Error(`Player with id ${input.playerId} not found`);
+    }
+
+    const player = players[0];
+
+    // Get player's buildings
+    const buildings = await db.select()
+      .from(buildingsTable)
+      .where(eq(buildingsTable.playerId, input.playerId))
+      .execute();
+
+    // Get player's units
+    const units = await db.select()
+      .from(unitsTable)
+      .where(eq(unitsTable.playerId, input.playerId))
+      .execute();
+
+    return {
+      player,
+      buildings,
+      units
+    };
+  } catch (error) {
+    console.error('Failed to get player state:', error);
+    throw error;
+  }
 }
